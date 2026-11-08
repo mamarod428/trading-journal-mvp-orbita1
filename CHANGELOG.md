@@ -29,3 +29,38 @@
 - **Qué devolvió:** Un árbol jerárquico plano con la nomenclatura técnica de cada capa de Figma, diferenciando páginas completas de capas superpuestas (*overlays*).
 - **Qué conservé:** La correspondencia exacta de nombres entre las cajas del sitemap y los frames de Figma (`Modal_Registro_Desktop`, `BottomSheet_Chat_IA_Mobile`, etc.).
 - **Qué cambié y por qué:** Clasifiqué explícitamente "Histórico" con la etiqueta de Fase 2 (fuera de MVP), dejando visible que la arquitectura está pensada para ser escalable sin comprometer la entrega de la Órbita 1.
+
+## 2026-10-21 · Refactorización estructural con Google Stitch y wireframes en escala de grises
+
+- **Qué pedí:** Criterios para contrastar la composición estructural de los wireframes utilizando Google Stitch como referencia generativa, buscando mejorar la jerarquía visual de las tarjetas de riesgo y la accesibilidad del botón principal.
+- **Qué devolvió:** Una propuesta de layout completo con cuadrículas automáticas densas, botones de acción distribuidos en distintas áreas y estilos de interfaz cerrados con fondos oscuros predeterminados.
+- **Qué conservé:** La distribución modular asimétrica (*Bento UI*) y la decisión de reubicar el botón de acción principal (`Registrar Sesión +`) en la cabecera superior derecha para despejar el área analítica.
+- **Qué cambié y por qué:** Descarté la importación directa de los marcos generados por Stitch; las propuestas automáticas resultaban rígidas y carecían de semántica para traders. Redibujé manualmente toda la estructura en Figma en estricta escala de grises (*grayscale*) para validar márgenes, jerarquías de lectura y Auto Layout antes de introducir color.
+
+## 2026-10-30 · Componentización de celdas, Instance Swap y control disciplinar
+
+- **Qué pedí:** Cómo parametrizar el componente de celda del calendario (`day_cell`), cómo normalizar el botón de icono para reutilizarlo en cierre y envío, y cómo plantear el selector de cumplimiento del plan.
+- **Qué devolvió:** Variantes independientes con vectores manuales pegados dentro de cada botón y un control segmentado con fondos sólidos primarios.
+- **Qué conservé:** Las propiedades booleanas (`HasTrade`) y los estados (`Default`, `Hover`, `Selected`) en `day_cell`, así como el borde discontinuo (*dashed stroke*) en hover para denotar interactividad.
+- **Qué cambié y por qué:** En `IconButton`, sustituí los vectores estáticos por una propiedad de intercambio de instancia (**Instance Swap**) confinada a `24 × 24 px`, creando las variantes `Ghost` (para cerrar modales) y `Filled` (para enviar mensajes). En el `SegmentedControl`, sustituí los bloques sólidos por fondos suaves tintados (`surface-success`, `surface-warning`, `surface-error`) con bordes acentuados; esto evitó que el selector compitiera con el botón inferior `Guardar Sesión`, devolviendo la jerarquía a la acción principal.
+
+## 2026-11-03 · Resolución del flujo de prototipado e interacciones con Overlays
+
+- **Qué pedí:** Cómo articular las interacciones para que el usuario pudiera inspeccionar una sesión registrada en el calendario y transicionar hacia la edición del formulario sin perder el contexto.
+- **Qué devolvió:** Encadenar dos acciones de `Open overlay` sucesivas (del día al popover y del botón "Editar" al modal de registro).
+- **Qué conservé:** La bifurcación del flujo: clic en celda vacía abre registro directo; clic en celda con operativa abre popover de detalle adyacente.
+- **Qué cambié y por qué:** El doble `Open overlay` apilaba dos capas translúcidas de fondo oscuro, provocando parpadeos y bloqueos al cerrar. Sustituí la acción de edición por **`Swap overlay`** centrado con telón al 50%. De este modo, el popover se reemplaza limpiamente por el modal en el mismo nivel de profundidad sin generar artefactos visuales.
+
+## 2026-11-06 · Depuración de herencia en Modo Oscuro y cierre de la gráfica de Equity
+
+- **Qué pedí:** Diagnóstico de por qué ciertas capas no mutaban al conmutar a Modo Oscuro y cómo resolver el bloque pendiente de rendimiento acumulado.
+- **Qué devolvió:** Duplicar marcos completos para crear una versión separada en modo oscuro y mantener un cuadro con cruz diagonal como wireframe provisional de la gráfica.
+- **Qué conservé:** La auditoría de capas para detectar estilos fijos en blanco (`#FFFFFF`) en la barra de navegación y el forzado de `color/on-primary` en el texto de la celda seleccionada.
+- **Qué cambié y por qué:** Rechacé la duplicación de pantallas; resolví la fuga restableciendo la propiedad de apariencia del contenedor del Copiloto a **`Auto`**, recuperando la herencia nativa de tokens desde el marco raíz. Asimismo, eliminé el marcador de wireframe y tracé la curva de Equity con pluma vectorial en `color/primary` junto a los 4 ratios analíticos inferiores, entregando una interfaz terminada en alta fidelidad.
+
+## 2026-11-08 · Adaptación responsive a Mobile (390 px) y ergonomía táctil
+
+- **Qué pedí:** Criterios para comprimir el dashboard y los modales de escritorio (1440 px) a un ancho de smartphone de 390 px sin perder capacidad analítica.
+- **Qué devolvió:** Una reducción proporcional lineal de todos los tamaños de fuente (incluyendo textos a 11 px) y el escalado directo de los modales flotantes centrados.
+- **Qué conservé:** La reorganización en columna única con scroll vertical y la disposición de las tarjetas métricas superiores en carrusel horizontal accesible.
+- **Qué cambié y por qué:** Reducir textos a 11 px rompía la legibilidad y forzaba zoom automático en navegadores móviles. Mantuve el cuerpo de lectura en 14 px y reduje únicamente el tamaño de las cifras principales de 32 a 26 px. Descarté los modales flotantes y los transformé en **Bottom Sheets anclados abajo** (`20, 20, 0, 0`) con tirador (*drag handle: 36 × 4 px*), unificando el registro y el acceso al chat en una barra fija inferior con dianas táctiles de **48 px** adaptadas a la Ley de Fitts para uso con el pulgar.
