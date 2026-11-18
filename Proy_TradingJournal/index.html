@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diario de Trading</title>
+  <meta name="description" content="Diario cuantitativo de trading, control de disciplina operativa y análisis de rendimiento.">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="o-container navbar__inner">
+      <a class="navbar__brand" href="#sec-dashboard" data-seccion="sec-dashboard">Trading Journal</a>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <ul class="main-nav__list" role="list">
+          <li>
+            <a class="main-nav__link" href="#sec-dashboard" data-seccion="sec-dashboard" aria-current="page">Dashboard</a>
+          </li>
+          <li>
+            <a class="main-nav__link" href="#sec-diario" data-seccion="sec-diario">Diario</a>
+          </li>
+          <li>
+            <a class="main-nav__link" href="#sec-historico" data-seccion="sec-historico">Histórico</a>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="button" id="btn-ir-diario" type="button" data-seccion="sec-diario">+ Registrar sesión</button>
+    </div>
+  </header>
+
+  <main class="o-container o-stack">
+    <section id="sec-dashboard" class="view o-stack" aria-labelledby="title-dashboard">
+      <header class="o-stack">
+        <h1 id="title-dashboard">Dashboard</h1>
+        <p class="view__subtitle">Resumen general de disciplina y calendario de jornadas operadas.</p>
+      </header>
+    </section>
+
+    <section id="sec-diario" class="view o-stack" aria-labelledby="title-diario" hidden>
+      <header class="o-stack">
+        <h2 id="title-diario">Diario de sesiones</h2>
+        <p class="view__subtitle">Sección enlazada en el menú para el registro diario de operaciones.</p>
+      </header>
+    </section>
+
+    <section id="sec-historico" class="view o-stack" aria-labelledby="title-historico" hidden>
+      <header class="o-stack">
+        <h2 id="title-historico">Histórico de sesiones</h2>
+        <p class="view__subtitle">Pulsa una sesión del listado para abrir su ficha completa.</p>
+      </header>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

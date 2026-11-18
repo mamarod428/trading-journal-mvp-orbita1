@@ -1,0 +1,184 @@
+@layer settings, generic, elements, objects, components, utilities;
+
+@layer settings {
+  :root {
+    --color-surface: #F8FAFC;
+    --color-surface-raised: #FFFFFF;
+    --color-on-surface: #0F172A;
+    --color-on-surface-variant: #475569;
+    --color-primary: #2563EB;
+    --color-on-primary: #FFFFFF;
+    --color-success: #059669;
+    --color-success-soft: #F0FDF4;
+    --color-success-border: #BBF7D0;
+    --color-warning: #AC5425;
+    --color-warning-soft: #FFFBEB;
+    --color-warning-border: #FDE68A;
+    --color-outline: #E2E8F0;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+
+    --radius-sm: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+
+    --font-family-sans: system-ui, -apple-system, sans-serif;
+    --font-family-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --font-display: 700 2rem/1.2 var(--font-family-mono);
+    --font-heading-1: 700 1.5rem/1.33 var(--font-family-sans);
+    --font-heading-2: 600 1.25rem/1.4 var(--font-family-sans);
+    --font-heading-3: 600 1rem/1.5 var(--font-family-sans);
+    --font-body: 400 1rem/1.5 var(--font-family-sans);
+    --font-label: 600 0.875rem/1.43 var(--font-family-sans);
+    --font-caption-mono: 500 0.75rem/1.6 var(--font-family-mono);
+    --font-caption: 400 0.75rem/1.6 var(--font-family-sans);
+
+    --elevation-1: 0 1px 3px rgb(15 23 42 / 8%);
+    --elevation-3: 0 12px 28px rgb(15 23 42 / 24%);
+  }
+}
+
+@layer generic {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ul[role="list"],
+  ol[role="list"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer elements {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font: var(--font-body);
+    padding-block-end: var(--space-8);
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  h1 {
+    font: var(--font-heading-1);
+  }
+
+  h2 {
+    font: var(--font-heading-2);
+  }
+
+  h3 {
+    font: var(--font-heading-3);
+  }
+
+  p,
+  dl {
+    margin: 0;
+  }
+}
+
+@layer objects {
+  .o-container {
+    width: calc(100% - 2rem);
+    max-width: 85rem;
+    margin-inline: auto;
+  }
+
+  .o-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap, var(--space-4));
+  }
+}
+
+@layer components {
+  .navbar {
+    padding-block: var(--space-3);
+    margin-block-end: var(--space-6);
+    border-bottom: 1px solid var(--color-outline);
+    background-color: var(--color-surface-raised);
+  }
+
+  .navbar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .navbar__brand {
+    color: var(--color-on-surface);
+    font: var(--font-heading-2);
+    text-decoration: none;
+  }
+
+  .main-nav__list {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .main-nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: var(--space-2);
+    color: var(--color-on-surface-variant);
+    font: var(--font-label);
+    text-decoration: none;
+  }
+
+  .main-nav__link[aria-current="page"] {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.4em;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    font: var(--font-label);
+    cursor: pointer;
+  }
+
+  .view__subtitle {
+    color: var(--color-on-surface-variant);
+  }
+}
