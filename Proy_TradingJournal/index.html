@@ -36,6 +36,26 @@
         <h1 id="title-dashboard">Dashboard</h1>
         <p class="view__subtitle">Resumen general de disciplina y calendario de jornadas operadas.</p>
       </header>
+
+      <ul id="resumen-metricas" class="o-grid" role="list" aria-label="Indicadores principales"></ul>
+
+      <div class="o-bento">
+        <article class="card o-stack">
+          <header class="card__header">
+            <h2 class="card__title">Calendario</h2>
+          </header>
+          <p class="card__meta">Pulsa un día operado para ver la ficha completa de la sesión.</p>
+          <div id="calendario-dias" class="calendar-grid"></div>
+        </article>
+
+        <article class="card o-stack">
+          <header class="card__header">
+            <h2 class="card__title">Rendimiento acumulado</h2>
+          </header>
+          <p class="card__meta">Evolución neta de las sesiones registradas en el periodo.</p>
+          <div id="resumen-rendimiento" class="o-stack"></div>
+        </article>
+      </div>
     </section>
 
     <section id="sec-diario" class="view o-stack" aria-labelledby="title-diario" hidden>
@@ -43,6 +63,11 @@
         <h2 id="title-diario">Diario de sesiones</h2>
         <p class="view__subtitle">Sección enlazada en el menú para el registro diario de operaciones.</p>
       </header>
+
+      <article class="card o-stack">
+        <h3 class="card__title">Nuevo registro operativo</h3>
+        <p class="card__meta">Formulario interactivo.</p>
+      </article>
     </section>
 
     <section id="sec-historico" class="view o-stack" aria-labelledby="title-historico" hidden>
@@ -50,8 +75,18 @@
         <h2 id="title-historico">Histórico de sesiones</h2>
         <p class="view__subtitle">Pulsa una sesión del listado para abrir su ficha completa.</p>
       </header>
+
+      <ul id="listado-sesiones" class="o-grid" role="list"></ul>
     </section>
   </main>
+
+  <dialog class="dialog" id="detail-dialog" aria-labelledby="dialog-title">
+    <header class="dialog__header">
+      <h2 class="dialog__title" id="dialog-title">Detalle de la sesión</h2>
+      <button class="button button--secondary" id="cerrar-popup" type="button">Cerrar</button>
+    </header>
+    <div class="dialog__body o-stack" id="contenido-popup"></div>
+  </dialog>
 
   <script type="module" src="js/main.js"></script>
 </body>

@@ -1,28 +1,19 @@
-function configurarMenuBasico() {
-  const disparadores = document.querySelectorAll('[data-seccion]');
-  const enlacesNav = document.querySelectorAll('.main-nav__link');
-  const secciones = document.querySelectorAll('.view');
-
-  disparadores.forEach(function (elemento) {
-    elemento.addEventListener('click', function (evento) {
-      evento.preventDefault();
-      const destinoId = elemento.getAttribute('data-seccion');
-
-      enlacesNav.forEach(function (enlace) {
-        if (enlace.getAttribute('data-seccion') === destinoId) {
-          enlace.setAttribute('aria-current', 'page');
-        } else {
-          enlace.removeAttribute('aria-current');
-        }
-      });
-
-      secciones.forEach(function (sec) {
-        sec.hidden = sec.id !== destinoId;
-      });
-    });
-  });
-}
+import { cuentas, diasCalendario, sesiones } from './datos.js';
+import {
+  configurarDialogo,
+  configurarMenu,
+  pintarCalendario,
+  pintarListadoSesiones,
+  pintarRendimiento,
+  pintarResumenDashboard
+} from './ui.js';
 
 document.addEventListener('DOMContentLoaded', function () {
-  configurarMenuBasico();
+  configurarMenu();
+  configurarDialogo();
+
+  pintarResumenDashboard(sesiones, cuentas);
+  pintarCalendario(diasCalendario, sesiones, cuentas);
+  pintarRendimiento(sesiones);
+  pintarListadoSesiones(sesiones, cuentas);
 });
